@@ -1,0 +1,20 @@
+--- libvpx/build/make/configure.sh	2025-04-16 15:30:51.431710564 -0400
++++ libvpx-new/build/make/configure.sh	2025-04-16 15:36:35.935402419 -0400
+@@ -1183,7 +1183,7 @@
+ 
+         darwin)
+           if ! enabled external_build; then
+-            XCRUN_FIND="xcrun --sdk iphoneos --find"
++            XCRUN_FIND="xcrun --find"
+             CXX="$(${XCRUN_FIND} clang++)"
+             CC="$(${XCRUN_FIND} clang)"
+             AR="$(${XCRUN_FIND} ar)"
+@@ -1200,7 +1200,7 @@
+             add_cflags -arch ${tgt_isa}
+             add_ldflags -arch ${tgt_isa}
+ 
+-            alt_libc="$(show_darwin_sdk_path iphoneos)"
++            alt_libc="$(show_darwin_sdk_path macosx)"
+             if [ -d "${alt_libc}" ]; then
+               add_cflags -isysroot ${alt_libc}
+             fi
