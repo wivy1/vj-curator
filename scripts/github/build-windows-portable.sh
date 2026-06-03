@@ -27,8 +27,9 @@ export CONFIGFLAGS="${CONFIGFLAGS:-} --disable-sout --disable-live555 --disable-
 
 # Build Windows contribs from source. The public prebuilt contrib archive can
 # lag this VLC source tree and provide older FFmpeg libraries than configure
-# accepts.
-extras/package/win32/build.sh -r -a "$ARCH" -g a
+# accepts. Set RELEASE without -r so the upstream script does not try to build
+# the NSIS installer after compiling VLC.
+RELEASE=yes extras/package/win32/build.sh -a "$ARCH" -g a
 make -C "$BUILD_DIR" package-vjcurator-win32-portable
 
 mkdir -p dist
