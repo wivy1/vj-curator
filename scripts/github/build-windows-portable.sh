@@ -20,10 +20,10 @@ case "$ARCH" in
 esac
 
 # CI builds target local clip curation, so avoid optional disc, network,
-# stream-output, and nonessential resampler contribs that often slow or break
-# hosted Windows builds.
-export CONTRIBFLAGS="${CONTRIBFLAGS:-} --disable-disc --disable-net --disable-sout --disable-samplerate --disable-soxr"
-export CONFIGFLAGS="${CONFIGFLAGS:-} --disable-live555 --disable-dvdread --disable-dvdnav --disable-bluray --disable-vcd --disable-shout --disable-samplerate --disable-soxr"
+# stream-output, resampler, and codec contribs that often slow or break hosted
+# Windows builds.
+export CONTRIBFLAGS="${CONTRIBFLAGS:-} --disable-disc --disable-net --disable-sout --disable-samplerate --disable-soxr --disable-vpx"
+export CONFIGFLAGS="${CONFIGFLAGS:-} --disable-live555 --disable-dvdread --disable-dvdnav --disable-bluray --disable-vcd --disable-shout --disable-samplerate --disable-soxr --disable-vpx"
 
 # Build Windows contribs from source. The public prebuilt contrib archive can
 # lag this VLC source tree and provide older FFmpeg libraries than configure
