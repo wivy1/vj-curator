@@ -2,6 +2,12 @@
 set -euo pipefail
 
 ARCH="${1:-x86_64}"
+RELEASE_VERSION="${VJ_CURATOR_RELEASE_VERSION:-${VJ_CURATOR_RELEASE_TAG:-${GITHUB_REF_NAME:-dev}}}"
+RELEASE_VERSION="${RELEASE_VERSION#v}"
+
+if [ -z "$RELEASE_VERSION" ]; then
+  RELEASE_VERSION="dev"
+fi
 
 case "$ARCH" in
   x86_64)
@@ -33,5 +39,13 @@ RELEASE=yes extras/package/win32/build.sh -a "$ARCH" -g a
 make -C "$BUILD_DIR" package-vjcurator-win32-portable
 
 mkdir -p dist
-cp "$BUILD_DIR"/vj-curator-*.zip dist/
-cp "$BUILD_DIR"/vj-curator-*.7z dist/
+zip_artifact="$(find "$BUILD_DIR" -maxdepth 1 -type f -name 'vj-curator-*.zip' | sort | head -n 1)"
+seven_zip_artifact="$(find "$BUILD_DIR" -maxdepth 1 -type f -name 'vj-curator-*.7z' | sort | head -n 1)"
+
+if [ -z "$zip_artifact" ] || [ -z "$seven_zip_artifact" ]; then
+  echo "Expected Windows portable artifacts were not created" >&2
+  exit 1
+fi
+
+cp "$zip_artifact" "dist/vj-curator-${RELEASE_VERSION}-${BUILD_DIR}.zip"
+cp "$seven_zip_artifact" "dist/vj-curator-${RELEASE_VERSION}-${BUILD_DIR}.7z"

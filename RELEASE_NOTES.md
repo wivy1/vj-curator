@@ -2,6 +2,8 @@
 
 This release introduces VJ Curator, a VLC fork focused on fast clip preview and numeric-key curation.
 
+VJ Curator 0.1.0 is based on VLC 4.0.0-dev.
+
 ## Highlights
 
 - Automatically indexes visible top-level files located beside the app.

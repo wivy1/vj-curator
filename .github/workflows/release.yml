@@ -14,6 +14,9 @@ on:
 permissions:
   contents: write
 
+env:
+  VJ_CURATOR_RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+
 jobs:
   windows:
     name: Windows portable
@@ -95,11 +98,7 @@ jobs:
       - name: Resolve tag
         id: tag
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "tag=${{ inputs.tag }}" >> "$GITHUB_OUTPUT"
-          else
-            echo "tag=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
-          fi
+          echo "tag=${VJ_CURATOR_RELEASE_TAG}" >> "$GITHUB_OUTPUT"
 
       - name: Create or update release
         env:
@@ -107,6 +106,15 @@ jobs:
           TAG_NAME: ${{ steps.tag.outputs.tag }}
         run: |
           if gh release view "$TAG_NAME" >/dev/null 2>&1; then
+            gh release edit "$TAG_NAME" \
+              --title "VJ Curator $TAG_NAME" \
+              --notes-file RELEASE_NOTES.md
+            gh release view "$TAG_NAME" --json assets --jq '.assets[].name' |
+              while IFS= read -r asset; do
+                case "$asset" in
+                  vj-curator-*) gh release delete-asset "$TAG_NAME" "$asset" --yes ;;
+                esac
+              done
             gh release upload "$TAG_NAME" dist/* --clobber
           else
             gh release create "$TAG_NAME" dist/* \
