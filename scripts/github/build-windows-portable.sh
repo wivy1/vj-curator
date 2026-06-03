@@ -19,12 +19,15 @@ case "$ARCH" in
     ;;
 esac
 
-# CI builds target local clip curation, so avoid optional disc and RTSP modules
-# that often require unavailable contribs on the generic GitHub runner.
-export CONTRIBFLAGS="${CONTRIBFLAGS:-} --disable-disc"
+# CI builds target local clip curation, so avoid optional disc, network, and
+# stream-output contribs that often require unavailable libraries.
+export CONTRIBFLAGS="${CONTRIBFLAGS:-} --disable-disc --disable-net --disable-sout"
 export CONFIGFLAGS="${CONFIGFLAGS:-} --disable-live555 --disable-dvdread --disable-dvdnav --disable-bluray --disable-vcd --disable-shout"
 
-extras/package/win32/build.sh -r -p -a "$ARCH" -g a
+# Build Windows contribs from source. The public prebuilt contrib archive can
+# lag this VLC source tree and provide older FFmpeg libraries than configure
+# accepts.
+extras/package/win32/build.sh -r -a "$ARCH" -g a
 make -C "$BUILD_DIR" package-vjcurator-win32-portable
 
 mkdir -p dist
