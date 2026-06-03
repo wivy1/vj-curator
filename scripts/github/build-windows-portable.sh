@@ -22,7 +22,7 @@ esac
 # CI builds target local clip curation, so avoid optional disc and RTSP modules
 # that often require unavailable contribs on the generic GitHub runner.
 export CONTRIBFLAGS="${CONTRIBFLAGS:-} --disable-disc"
-export CONFIGFLAGS="${CONFIGFLAGS:-} --disable-live555 --disable-dvdread --disable-dvdnav --disable-bluray --disable-vcd"
+export CONFIGFLAGS="${CONFIGFLAGS:-} --disable-live555 --disable-dvdread --disable-dvdnav --disable-bluray --disable-vcd --disable-shout"
 
 extras/package/win32/build.sh -r -p -a "$ARCH" -g a
 make -C "$BUILD_DIR" package-vjcurator-win32-portable

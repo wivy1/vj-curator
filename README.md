@@ -1,65 +1,79 @@
 # VJ Curator
 
-VJ Curator is a portable VLC fork for VJs who need to preview and sort thousands of video clips quickly from a familiar VLC-style interface.
+VJ Curator is a portable video-sorting app for VJs.
 
-Drop the app into a folder of clips, launch it, and press `0` through `9` while each clip plays. VJ Curator moves the current clip into a sibling folder named for that number, removes it from the queue, and starts the next clip.
+It looks and feels like VLC, but it is built for one job: quickly watching a folder of clips and sorting them with the number keys.
 
-## Features
+## Why Use It
 
-- Automatically indexes visible files directly next to the app on launch.
-- Ignores hidden files and every subdirectory.
-- Uses VLC's playback engine, so files are handed to VLC rather than filtered by extension.
-- Sorts the queue alphabetically by filename.
-- Plays clips sequentially with shuffle and repeat disabled at startup.
-- Supports top-row digit keys and numpad digit keys.
-- Runs the curation action on a single keypress, not while a key is held down.
-- Creates destination folders named exactly `0` through `9` when needed.
-- Moves files instead of copying them.
-- Keeps a remaining-clip counter beside the volume controls.
-- Shows a VJ Curator-specific empty queue message after the last clip is moved.
+When you have hundreds or thousands of loops, edits, renders, grabs, and experiments, sorting them by dragging files around is slow.
 
-## Downloads
+VJ Curator lets you play through a folder one clip at a time. While a clip is playing, press `0` through `9` to move that clip into a matching folder.
 
-Published releases should include portable, no-installer archives:
+For example:
 
-- `vj-curator-*-win64.zip`
-- `vj-curator-*-win64.7z`
-- `vj-curator-*-macosx.zip`
+- Press `1` for keepers.
+- Press `2` for maybes.
+- Press `3` for texture clips.
+- Press `0` for rejects.
 
-See [PUBLISHING.md](PUBLISHING.md) for the release process and build requirements.
+You decide what the numbers mean.
 
-## Usage
+## How It Works
 
-1. Download and extract the portable archive for your platform.
-2. Put the app in the same folder as the clips you want to curate.
-3. Launch VJ Curator.
-4. While each clip plays, press a number from `0` to `9`.
-5. Find sorted clips in sibling folders named `0`, `1`, `2`, and so on.
+1. Put VJ Curator in the same folder as your video clips.
+2. Open VJ Curator.
+3. It loads the clips in that folder.
+4. Watch the current clip.
+5. Press a number key from `0` to `9`.
+6. The clip moves into a folder with that number, and the next clip starts.
 
-Only files directly next to the app are indexed. Files inside subfolders are ignored, including files inside the numeric destination folders.
+VJ Curator only looks at files in the same folder as the app. It ignores subfolders, including the numbered folders it creates.
 
-## Build
+It moves files instead of copying them. Try it on a test folder first if you are working with important originals.
 
-This fork keeps VLC's build system and adds portable package targets:
+## Download
 
-```sh
-# Windows cross-build, from the configured win64 build directory
-make package-vjcurator-win32-portable
+Download the newest release here:
 
-# macOS, from the configured macOS build directory
-make package-vjcurator-macosx-portable
-```
+[Download VJ Curator](https://github.com/wivy1/vj-curator/releases/latest)
 
-GitHub Actions workflows are included under `.github/workflows/` to build release artifacts on tag pushes or manual dispatch. VLC is a large native project with substantial platform toolchain requirements, so first release runs may require runner dependency tuning.
+All releases are here:
 
-## Attribution And License
+[All VJ Curator releases](https://github.com/wivy1/vj-curator/releases)
 
-VJ Curator is derived from VLC. VLC's original license, author, and contributor attribution files are preserved:
+On the release page:
 
-- [COPYING](COPYING)
-- [COPYING.LIB](COPYING.LIB)
-- [AUTHORS](AUTHORS)
-- [THANKS](THANKS)
-- [README-VLC.md](README-VLC.md)
+- Windows: download the `win64.zip` or `win64.7z` file.
+- macOS: download the `macosx.zip` file.
 
-VJ Curator is distributed under the same GPL terms as VLC. libVLC remains under VLC's LGPL terms.
+## Install
+
+### Windows
+
+1. Download the Windows archive from [the latest release](https://github.com/wivy1/vj-curator/releases/latest).
+2. Extract the archive.
+3. Put the extracted VJ Curator folder next to the clips you want to sort.
+4. Open `VJ Curator.exe`.
+
+### macOS
+
+1. Download the macOS archive from [the latest release](https://github.com/wivy1/vj-curator/releases/latest).
+2. Unzip it.
+3. Put `VJ Curator.app` next to the clips you want to sort.
+4. Open the app.
+
+If macOS blocks the app the first time, right-click `VJ Curator.app`, choose `Open`, then choose `Open` again.
+
+## Notes
+
+- Top-row number keys and numpad keys both work.
+- Holding a number key down will not repeatedly sort the same clip.
+- The counter beside the volume controls shows how many clips are left.
+- When the folder is empty, the app shows a simple prompt telling you what to do next.
+
+## Credits
+
+VJ Curator is based on [VLC media player](https://www.videolan.org/vlc/). It keeps VLC's open-source licensing and attribution files.
+
+This project is not an official VideoLAN release.
