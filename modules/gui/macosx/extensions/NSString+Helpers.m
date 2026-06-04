@@ -581,6 +581,9 @@ unsigned int VLCModifiersToCocoa(char *theChar)
 {
     unsigned int new = 0;
 
+    if (theChar == NULL)
+        return new;
+
     if (strstr(theChar, "Command") != NULL)
         new |= NSEventModifierFlagCommand;
     if (strstr(theChar, "Alt") != NULL)
