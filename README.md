@@ -1,6 +1,8 @@
 # VJ Curator
 Do you have thousands of VJ loops and need to curate though them all?
 
+<img src="https://raw.githubusercontent.com/nuclearsugar/vj-curator/refs/heads/patch-1/icon.png" width="150" height="150">
+
 ## App for Windows & Mac
 [Download VJ Curator](https://github.com/wivy1/vj-curator/releases/latest) - *Portable build, no installer needed. Place the app anywhere convenient.*
 
