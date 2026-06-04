@@ -7,6 +7,7 @@ win32_destdir=@PACKAGE_DIR@
 win32_debugdir=$(abs_top_builddir)/symbols-$(VERSION)
 
 7ZIP_OPTS=-t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on
+VJCURATOR_MAKENSIS=$(if $(MAKENSIS),$(MAKENSIS),makensis)
 
 
 if HAVE_WIN32
@@ -172,11 +173,14 @@ package-vjcurator-win32-portable: package-win-strip
 	rm -Rf "$(VJCURATOR_WINVERSION)"
 	cp -R vlc-$(VERSION) "$(VJCURATOR_WINVERSION)"
 	if test -f "$(VJCURATOR_WINVERSION)/vlc.exe"; then \
-		cp "$(VJCURATOR_WINVERSION)/vlc.exe" "$(VJCURATOR_WINVERSION)/VJ Curator.exe"; \
+		cp "$(VJCURATOR_WINVERSION)/vlc.exe" "$(VJCURATOR_WINVERSION)/VJ Curator Runtime.exe"; \
 	fi
-	rm -f -- $(VJCURATOR_WINVERSION).zip $(VJCURATOR_WINVERSION).7z
-	zip -r -9 $(VJCURATOR_WINVERSION).zip "$(VJCURATOR_WINVERSION)" --exclude \*.nsi \*NSIS\* \*languages\* \*sdk\* \*helpers\* spad\*
-	$(SEVENZIP) a $(7ZIP_OPTS) $(VJCURATOR_WINVERSION).7z "$(VJCURATOR_WINVERSION)"
+	rm -f -- $(VJCURATOR_WINVERSION).exe
+	$(VJCURATOR_MAKENSIS) \
+		-DPORTABLE_SOURCE_DIR="$(abs_top_builddir)/$(VJCURATOR_WINVERSION)" \
+		-DPORTABLE_OUTFILE="$(abs_top_builddir)/$(VJCURATOR_WINVERSION).exe" \
+		-DPORTABLE_RUN_EXE="VJ Curator Runtime.exe" \
+		"$(top_srcdir)/extras/package/win32/vjcurator-portable.nsi"
 	rm -Rf "$(VJCURATOR_WINVERSION)"
 
 package-win32-debug-7zip: package-win-common

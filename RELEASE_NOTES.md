@@ -12,7 +12,7 @@ VJ Curator 0.1.0 is based on VLC 4.0.0-dev.
 - Moves the currently playing clip into folders `0` through `9` using top-row or numpad keys.
 - Updates the remaining clip counter beside the volume controls.
 - Replaces VLC's empty queue text with VJ Curator-specific guidance.
-- Provides portable no-installer archive targets for Windows and macOS.
+- Provides a one-file Windows launcher and a one-app macOS archive.
 
 ## License
 

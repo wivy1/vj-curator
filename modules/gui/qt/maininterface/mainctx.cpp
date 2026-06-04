@@ -445,7 +445,7 @@ void MainCtx::loadFromSettingsImpl(const bool callSignals)
 
     loadFromSettings(b_playlistDocked, "MainWindow/pl-dock-status", true, &MainCtx::playlistDockedChanged);
 
-    loadFromSettings(m_playlistVisible, "MainWindow/playlist-visible", false, &MainCtx::playlistVisibleChanged);
+    loadFromSettings(m_playlistVisible, "MainWindow/playlist-visible", true, &MainCtx::playlistVisibleChanged);
 
     loadFromSettings(m_playlistWidthFactor, "MainWindow/playlist-width-factor", 4.0 , &MainCtx::playlistWidthFactorChanged);
 
@@ -454,7 +454,7 @@ void MainCtx::loadFromSettingsImpl(const bool callSignals)
     loadFromSettings(m_artistAlbumsWidthFactor, "MainWindow/artist-albums-width-factor"
                      , 4.0 , &MainCtx::artistAlbumsWidthFactorChanged);
 
-    loadFromSettings(m_gridView, "MainWindow/grid-view", true, &MainCtx::gridViewChanged);
+    loadFromSettings(m_gridView, "MainWindow/grid-view", false, &MainCtx::gridViewChanged);
 
     loadFromSettings(m_grouping, "MainWindow/grouping", GROUPING_NONE, &MainCtx::groupingChanged);
 

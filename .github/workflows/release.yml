@@ -43,6 +43,7 @@ jobs:
             pkg-config \
             protobuf-compiler \
             ragel \
+            nsis \
             subversion \
             unzip \
             yasm \

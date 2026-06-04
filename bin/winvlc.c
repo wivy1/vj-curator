@@ -130,13 +130,18 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance,
     if (wargv == NULL)
         return 1;
 
-    char *argv[argc + 3];
+    char *argv[argc + 10];
     BOOL crash_handling = TRUE;
     int j = 0;
     WCHAR *lang = NULL;
 
-    argv[j++] = strdup("--media-library");
-    argv[j++] = strdup("--no-ignore-config");
+    argv[j++] = strdup("--ignore-config");
+    argv[j++] = strdup("--no-media-library");
+    argv[j++] = strdup("--no-qt-privacy-ask");
+    argv[j++] = strdup("--qt-menubar");
+    argv[j++] = strdup("--qt-titlebar");
+    argv[j++] = strdup("--qt-pin-controls");
+    argv[j++] = strdup("--no-qt-backdrop-blur");
     for (int i = 1; i < argc; i++)
     {
         if(!wcscmp(wargv[i], L"--no-crashdump"))

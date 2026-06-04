@@ -32,6 +32,7 @@ FocusScope {
     id: g_mainDisplay
 
     // Properties
+    readonly property bool vjCuratorQueueMode: true
 
     property bool hasMiniPlayer: miniPlayer.visible
 
@@ -233,9 +234,10 @@ FocusScope {
         BannerSources {
             id: sourcesBanner
             z: 2
-            Layout.preferredHeight: height
-            Layout.minimumHeight: height
-            Layout.maximumHeight: height
+            visible: !g_mainDisplay.vjCuratorQueueMode
+            Layout.preferredHeight: visible ? height : 0
+            Layout.minimumHeight: Layout.preferredHeight
+            Layout.maximumHeight: Layout.preferredHeight
             Layout.fillWidth: true
 
             model: g_mainDisplay.tabModel
@@ -269,6 +271,7 @@ FocusScope {
 
             Rectangle {
                 id: stackViewParent
+                visible: !g_mainDisplay.vjCuratorQueueMode
 
                 // This rectangle is used to display the effect in
                 // the area of miniplayer background.
@@ -468,17 +471,19 @@ FocusScope {
 
                 anchors {
                     top: parent.top
+                    left: parent.left
                     right: parent.right
                 }
 
-                width: 0
+                width: parent.width
                 height: parent.height - g_mainDisplay.displayMargin
 
                 visible: false
 
-                active: MainCtx.playlistDocked
+                active: true
 
-                state: ((status === Loader.Ready) && MainCtx.playlistVisible) ? "expanded" : ""
+                state: ((status === Loader.Ready) &&
+                        (g_mainDisplay.vjCuratorQueueMode || MainCtx.playlistVisible)) ? "expanded" : ""
 
                 readonly property bool shown: !!item?.visible
 

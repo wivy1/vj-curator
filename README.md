@@ -44,22 +44,21 @@ All releases are here:
 
 On the release page:
 
-- Windows: download the `win64.zip` or `win64.7z` file.
+- Windows: download the `win64.exe` file.
 - macOS: download the `macosx.zip` file.
 
 ## Install
 
 ### Windows
 
-1. Download the Windows archive from [the latest release](https://github.com/wivy1/vj-curator/releases/latest).
-2. Extract the archive.
-3. Put the extracted VJ Curator folder next to the clips you want to sort.
-4. Open `VJ Curator.exe`.
+1. Download the Windows `.exe` from [the latest release](https://github.com/wivy1/vj-curator/releases/latest).
+2. Put `VJ Curator.exe` next to the clips you want to sort.
+3. Open it.
 
 ### macOS
 
 1. Download the macOS archive from [the latest release](https://github.com/wivy1/vj-curator/releases/latest).
-2. Unzip it.
+2. Unzip it. You should see one app: `VJ Curator.app`.
 3. Put `VJ Curator.app` next to the clips you want to sort.
 4. Open the app.
 

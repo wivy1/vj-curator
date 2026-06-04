@@ -51,10 +51,10 @@ Item {
     property int _currentMode: MainCtx.MAININTERFACE_MODE_INVALID
 
     function setInitialView() {
-        if (!MainCtx.minimalView && !MainPlaylistController.empty)
-            MainCtx.playerView = true
-        else
-            _loadView()
+        MainCtx.playlistDocked = true
+        MainCtx.playlistVisible = true
+        MainCtx.playerView = false
+        _loadView()
     }
 
     function _loadView() {

@@ -122,12 +122,14 @@ package-macosx-zip: VLC.app
 
 package-vjcurator-macosx-portable: VLC.app
 	rm -f "$(top_builddir)/vj-curator-$(VERSION)-macosx.zip"
-	rm -rf "$(top_builddir)/vj-curator-$(VERSION)-macosx"
-	mkdir -p "$(top_builddir)/vj-curator-$(VERSION)-macosx/Goodies/"
-	cp -Rp "$(top_builddir)/VLC.app" "$(top_builddir)/vj-curator-$(VERSION)-macosx/VJ Curator.app"
-	cd $(srcdir); cp -R AUTHORS COPYING README.md THANKS NEWS $(abs_top_builddir)/vj-curator-$(VERSION)-macosx/Goodies/
-	zip -r -y -9 "$(top_builddir)/vj-curator-$(VERSION)-macosx.zip" "$(top_builddir)/vj-curator-$(VERSION)-macosx"
-	rm -rf "$(top_builddir)/vj-curator-$(VERSION)-macosx"
+	rm -rf "$(top_builddir)/VJ Curator.app"
+	cp -Rp "$(top_builddir)/VLC.app" "$(top_builddir)/VJ Curator.app"
+	mkdir -p "$(top_builddir)/VJ Curator.app/Contents/Resources/Goodies/"
+	cd $(srcdir); cp -R AUTHORS COPYING README.md THANKS NEWS "$(abs_top_builddir)/VJ Curator.app/Contents/Resources/Goodies/"
+	codesign --force --deep --sign - "$(top_builddir)/VJ Curator.app"
+	codesign --verify --deep --strict --verbose=2 "$(top_builddir)/VJ Curator.app"
+	cd "$(top_builddir)" && ditto -c -k --sequesterRsrc --keepParent "VJ Curator.app" "vj-curator-$(VERSION)-macosx.zip"
+	rm -rf "$(top_builddir)/VJ Curator.app"
 
 package-macosx-release:
 	rm -f "$(top_builddir)/vlc-$(VERSION)-release.zip"

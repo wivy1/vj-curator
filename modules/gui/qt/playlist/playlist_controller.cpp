@@ -40,6 +40,14 @@ namespace vlc {
 
 static QDir curatorDirectory()
 {
+    const QByteArray overrideDir = qgetenv("VJ_CURATOR_CLIP_DIR");
+    if (!overrideDir.isEmpty())
+    {
+        QDir dir(QString::fromLocal8Bit(overrideDir));
+        if (dir.exists())
+            return dir;
+    }
+
     QDir dir(QCoreApplication::applicationDirPath());
 
 #ifdef Q_OS_MACOS
