@@ -29,7 +29,6 @@ Section
   SetOutPath "$PLUGINSDIR\app"
   File /r "${PORTABLE_SOURCE_DIR}/*"
 
-  System::Call 'Kernel32::SetEnvironmentVariable(t,t)i("VJ_CURATOR_CLIP_DIR", "$EXEDIR").r0'
   System::Call 'Kernel32::SetEnvironmentVariable(t,t)i("VLC_PLUGIN_PATH", "$PLUGINSDIR\app\plugins").r0'
 
   ${GetParameters} $0

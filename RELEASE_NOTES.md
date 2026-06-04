@@ -1,17 +1,17 @@
-# VJ Curator Initial Release
+# VJ Curator 0.1.1
 
-This release introduces VJ Curator, a VLC fork focused on fast clip preview and numeric-key curation.
+This release updates VJ Curator's queue workflow and improves the macOS build.
 
-VJ Curator 0.1.0 is based on VLC 4.0.0-dev.
+VJ Curator 0.1.1 is based on VLC 4.0.0-dev.
 
 ## Highlights
 
-- Automatically indexes visible top-level files located beside the app.
-- Ignores hidden files and all subdirectories.
-- Plays the indexed queue alphabetically and sequentially.
+- Starts with an empty queue so you can drop in videos or folders.
+- Moves each sorted clip into a numbered folder beside that clip.
 - Moves the currently playing clip into folders `0` through `9` using top-row or numpad keys.
 - Updates the remaining clip counter beside the volume controls.
-- Replaces VLC's empty queue text with VJ Curator-specific guidance.
+- Replaces VLC's empty queue text with VJ Curator-specific drop guidance.
+- Removes Qt-only launcher options from macOS and adds native macOS numeric-key curation.
 - Provides a one-file Windows launcher and a one-app macOS archive.
 
 ## License

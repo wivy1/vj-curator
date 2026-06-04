@@ -161,6 +161,12 @@ extern NSString * const VLCPlayQueueItemsRemoved;
 - (void)clearPlayQueue;
 
 /**
+ * Move the currently playing local file into a numbered bucket folder.
+ * The bucket folder is created next to the source file when needed.
+ */
+- (BOOL)curateCurrentlyPlayingItemToBucket:(NSInteger)bucket;
+
+/**
  * Sort the entire playlist listen based on:
  * @param sortKey the key used for sorting
  * @param sortOrder sort ascending or descending..

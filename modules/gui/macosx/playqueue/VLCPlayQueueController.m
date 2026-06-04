@@ -25,6 +25,7 @@
 #import <vlc_interface.h>
 #import <vlc_player.h>
 #import <vlc_media_library.h>
+#import <vlc_url.h>
 
 #import "extensions/NSString+Helpers.h"
 #import "main/VLCMain.h"
@@ -47,6 +48,41 @@ NSString * const VLCPlayQueueItemsAdded = @"VLCPlayQueueItemsAdded";
 NSString * const VLCPlayQueueItemsRemoved = @"VLCPlayQueueItemsRemoved";
 
 NSString * const VLCLibraryPlayQueueModeDefaultsKey = @"VLCLibraryPlayQueueMode";
+
+static NSString *
+VJCuratorNextAvailableDestinationPath(NSString *destinationDirectory,
+                                      NSString *sourcePath)
+{
+    NSFileManager * const fileManager = NSFileManager.defaultManager;
+    NSString * const originalName = sourcePath.lastPathComponent;
+    NSString *candidatePath = [destinationDirectory stringByAppendingPathComponent:originalName];
+    if (![fileManager fileExistsAtPath:candidatePath]) {
+        return candidatePath;
+    }
+
+    NSString * const extension = originalName.pathExtension;
+    NSString * const baseName = originalName.stringByDeletingPathExtension;
+    NSUInteger index = 1;
+    while (true) {
+        NSString *candidateName;
+        if (extension.length > 0) {
+            candidateName = [NSString stringWithFormat:@"%@ (%lu).%@",
+                             baseName,
+                             (unsigned long)index,
+                             extension];
+        } else {
+            candidateName = [NSString stringWithFormat:@"%@ (%lu)",
+                             baseName,
+                             (unsigned long)index];
+        }
+
+        candidatePath = [destinationDirectory stringByAppendingPathComponent:candidateName];
+        if (![fileManager fileExistsAtPath:candidatePath]) {
+            return candidatePath;
+        }
+        index++;
+    }
+}
 
 @interface VLCPlayQueueController ()
 {
@@ -513,6 +549,121 @@ static const struct vlc_playlist_callbacks playlist_callbacks = {
     vlc_playlist_Lock(_p_playlist);
     vlc_playlist_Clear(_p_playlist);
     vlc_playlist_Unlock(_p_playlist);
+}
+
+- (BOOL)curateCurrentlyPlayingItemToBucket:(NSInteger)bucket
+{
+    if (bucket < 0 || bucket > 9) {
+        return NO;
+    }
+
+    vlc_playlist_item_t *playlistItem = NULL;
+    ssize_t itemIndex = -1;
+    NSString *sourcePath = nil;
+
+    vlc_playlist_Lock(_p_playlist);
+    itemIndex = vlc_playlist_GetCurrentIndex(_p_playlist);
+    if (itemIndex >= 0) {
+        playlistItem = vlc_playlist_Get(_p_playlist, itemIndex);
+        if (playlistItem != NULL) {
+            vlc_playlist_item_Hold(playlistItem);
+            input_item_t * const inputItem = vlc_playlist_item_GetMedia(playlistItem);
+            if (inputItem != NULL) {
+                char * const uri = input_item_GetURI(inputItem);
+                if (uri != NULL) {
+                    char * const path = vlc_uri2path(uri);
+                    if (path != NULL) {
+                        sourcePath = toNSStr(path);
+                        free(path);
+                    }
+                    free(uri);
+                }
+            }
+        }
+    }
+    vlc_playlist_Unlock(_p_playlist);
+
+    if (playlistItem == NULL) {
+        return NO;
+    }
+
+    NSFileManager * const fileManager = NSFileManager.defaultManager;
+    BOOL isDirectory = NO;
+    if (sourcePath.length == 0 ||
+        ![fileManager fileExistsAtPath:sourcePath isDirectory:&isDirectory] ||
+        isDirectory) {
+        vlc_playlist_item_Release(playlistItem);
+        return NO;
+    }
+
+    NSURL * const sourceURL = [NSURL fileURLWithPath:sourcePath];
+    NSNumber *sourceIsHidden = nil;
+    if ([sourceURL getResourceValue:&sourceIsHidden
+                              forKey:NSURLIsHiddenKey
+                               error:nil] &&
+        sourceIsHidden.boolValue) {
+        vlc_playlist_item_Release(playlistItem);
+        return NO;
+    }
+
+    NSString * const sourceDirectory = sourcePath.stringByDeletingLastPathComponent;
+    NSString * const bucketDirectory =
+        [sourceDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%ld", (long)bucket]];
+    NSError *error = nil;
+    if (![fileManager createDirectoryAtPath:bucketDirectory
+                withIntermediateDirectories:YES
+                                 attributes:nil
+                                      error:&error]) {
+        const char * const errorDescription =
+            error.localizedDescription ? error.localizedDescription.UTF8String : "";
+        msg_Warn(getIntf(), "failed to create VJ Curator bucket directory: %s",
+                 errorDescription);
+        vlc_playlist_item_Release(playlistItem);
+        return NO;
+    }
+
+    NSString * const destinationPath =
+        VJCuratorNextAvailableDestinationPath(bucketDirectory, sourcePath);
+    if (![fileManager moveItemAtPath:sourcePath
+                              toPath:destinationPath
+                               error:&error]) {
+        const char * const errorDescription =
+            error.localizedDescription ? error.localizedDescription.UTF8String : "";
+        msg_Warn(getIntf(), "failed to move VJ Curator source file: %s",
+                 errorDescription);
+        vlc_playlist_item_Release(playlistItem);
+        return NO;
+    }
+
+    BOOL success = YES;
+
+    vlc_playlist_Lock(_p_playlist);
+    const ssize_t liveIndex = vlc_playlist_IndexOf(_p_playlist, playlistItem);
+    if (liveIndex >= 0) {
+        vlc_playlist_item_t *items[] = { playlistItem };
+        const int ret = vlc_playlist_RequestRemove(_p_playlist, items, 1, liveIndex);
+        if (ret != VLC_SUCCESS) {
+            success = NO;
+        } else {
+            const size_t remainingCount = vlc_playlist_Count(_p_playlist);
+            if ((size_t)liveIndex < remainingCount) {
+                vlc_playlist_PlayAt(_p_playlist, liveIndex);
+            } else {
+                vlc_playlist_Stop(_p_playlist);
+            }
+        }
+    }
+    vlc_playlist_Unlock(_p_playlist);
+
+    vlc_playlist_item_Release(playlistItem);
+
+    if (!success) {
+        [fileManager moveItemAtPath:destinationPath
+                              toPath:sourcePath
+                               error:nil];
+    }
+
+    return success;
 }
 
 - (int)sortByKey:(enum vlc_playlist_sort_key)sortKey andOrder:(enum vlc_playlist_sort_order)sortOrder

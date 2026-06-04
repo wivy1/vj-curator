@@ -8,7 +8,7 @@ It looks and feels like VLC, but it is built for one job: quickly watching a fol
 
 When you have hundreds or thousands of loops, edits, renders, grabs, and experiments, sorting them by dragging files around is slow.
 
-VJ Curator lets you play through a folder one clip at a time. While a clip is playing, press `0` through `9` to move that clip into a matching folder.
+VJ Curator lets you drop videos or folders into a queue, play through them one clip at a time, and press `0` through `9` to move the current clip into a matching folder.
 
 For example:
 
@@ -21,14 +21,13 @@ You decide what the numbers mean.
 
 ## How It Works
 
-1. Put VJ Curator in the same folder as your video clips.
-2. Open VJ Curator.
-3. It loads the clips in that folder.
-4. Watch the current clip.
-5. Press a number key from `0` to `9`.
-6. The clip moves into a folder with that number, and the next clip starts.
+1. Open VJ Curator.
+2. Drop videos or folders into the queue.
+3. Start playing the first clip.
+4. Press a number key from `0` to `9`.
+5. The clip moves into a folder with that number, and the next clip starts.
 
-VJ Curator only looks at files in the same folder as the app. It ignores subfolders, including the numbered folders it creates.
+The numbered folder is created beside the clip being sorted. For example, pressing `3` on `C:\Clips\loop.mov` moves it into `C:\Clips\3\loop.mov`.
 
 It moves files instead of copying them. Try it on a test folder first if you are working with important originals.
 
@@ -52,15 +51,17 @@ On the release page:
 ### Windows
 
 1. Download the Windows `.exe` from [the latest release](https://github.com/wivy1/vj-curator/releases/latest).
-2. Put `VJ Curator.exe` next to the clips you want to sort.
+2. Put `VJ Curator.exe` anywhere convenient.
 3. Open it.
+4. Drop videos or folders into the queue.
 
 ### macOS
 
 1. Download the macOS archive from [the latest release](https://github.com/wivy1/vj-curator/releases/latest).
 2. Unzip it. You should see one app: `VJ Curator.app`.
-3. Put `VJ Curator.app` next to the clips you want to sort.
+3. Put `VJ Curator.app` anywhere convenient.
 4. Open the app.
+5. Drop videos or folders into the queue.
 
 If macOS blocks the app the first time, right-click `VJ Curator.app`, choose `Open`, then choose `Open` again.
 
@@ -69,7 +70,7 @@ If macOS blocks the app the first time, right-click `VJ Curator.app`, choose `Op
 - Top-row number keys and numpad keys both work.
 - Holding a number key down will not repeatedly sort the same clip.
 - The counter beside the volume controls shows how many clips are left.
-- When the folder is empty, the app shows a simple prompt telling you what to do next.
+- When the queue is empty, the app shows a simple prompt telling you what to do next.
 
 ## Credits
 

@@ -26,8 +26,6 @@
 #include <vlc_url.h>
 #include "util/shared_input_item.hpp"
 #include <algorithm>
-#include <QCollator>
-#include <QCoreApplication>
 #include <QDir>
 #include <QVariant>
 #include <QDesktopServices>
@@ -37,48 +35,6 @@
 
 namespace vlc {
   namespace playlist {
-
-static QDir curatorDirectory()
-{
-    const QByteArray overrideDir = qgetenv("VJ_CURATOR_CLIP_DIR");
-    if (!overrideDir.isEmpty())
-    {
-        QDir dir(QString::fromLocal8Bit(overrideDir));
-        if (dir.exists())
-            return dir;
-    }
-
-    QDir dir(QCoreApplication::applicationDirPath());
-
-#ifdef Q_OS_MACOS
-    QDir bundleProbe = dir;
-    if (bundleProbe.dirName() == QLatin1String("MacOS") &&
-        bundleProbe.cdUp() &&
-        bundleProbe.dirName() == QLatin1String("Contents") &&
-        bundleProbe.cdUp() &&
-        bundleProbe.dirName().endsWith(QLatin1String(".app"), Qt::CaseInsensitive) &&
-        bundleProbe.cdUp())
-        return bundleProbe;
-#endif
-
-    return dir;
-}
-
-static bool isCuratorRuntimeFile(const QFileInfo &fileInfo,
-                                 const QString &appFilePath)
-{
-    const QString canonicalFilePath = fileInfo.canonicalFilePath();
-    if (!canonicalFilePath.isEmpty() && canonicalFilePath == appFilePath)
-        return true;
-
-    const QString suffix = fileInfo.suffix().toLower();
-    return suffix == QLatin1String("exe") ||
-           suffix == QLatin1String("dll") ||
-           suffix == QLatin1String("dylib") ||
-           suffix == QLatin1String("so") ||
-           suffix == QLatin1String("pdb") ||
-           suffix == QLatin1String("manifest");
-}
 
 static QString nextAvailableDestinationPath(const QDir &destinationDir,
                                             const QFileInfo &sourceInfo)
@@ -485,9 +441,6 @@ PlaylistController::PlaylistController(vlc_playlist_t *playlist, QObject *parent
         emit initializedChanged();
     });
 
-    QMetaObject::invokeMethod(this, [this]() {
-        initializeCuratorPlaylist();
-    }, Qt::QueuedConnection);
 }
 
 PlaylistController::~PlaylistController()
@@ -513,55 +466,6 @@ void PlaylistController::append(const QVariant &source, bool startPlaying)
 void PlaylistController::insert(unsigned index, const QVariantList& sourceList, bool startPlaying)
 {
     insert(index, toMediaList(sourceList), startPlaying);
-}
-
-void PlaylistController::initializeCuratorPlaylist()
-{
-    Q_D(PlaylistController);
-
-    QDir dir = curatorDirectory();
-    const QString appFilePath = QFileInfo(QCoreApplication::applicationFilePath()).canonicalFilePath();
-    QFileInfoList files = dir.entryInfoList(QDir::Files | QDir::Readable | QDir::NoDotAndDotDot,
-                                            QDir::NoSort);
-
-    files.erase(std::remove_if(files.begin(), files.end(), [&](const QFileInfo &fileInfo) {
-        return fileInfo.isHidden() || isCuratorRuntimeFile(fileInfo, appFilePath);
-    }), files.end());
-
-    QCollator collator;
-    collator.setCaseSensitivity(Qt::CaseInsensitive);
-    collator.setNumericMode(false);
-    std::sort(files.begin(), files.end(), [&](const QFileInfo &left, const QFileInfo &right) {
-        const int compare = collator.compare(left.fileName(), right.fileName());
-        if (compare != 0)
-            return compare < 0;
-        return left.fileName() < right.fileName();
-    });
-
-    QVector<Media> media;
-    media.reserve(files.size());
-    for (const QFileInfo &fileInfo : files)
-    {
-        const QUrl url = QUrl::fromLocalFile(fileInfo.absoluteFilePath());
-        media.push_back(Media(url.toString(QUrl::FullyEncoded), fileInfo.fileName()));
-    }
-
-    vlc_playlist_locker locker(d->m_playlist);
-    vlc_playlist_SetPlaybackOrder(d->m_playlist, VLC_PLAYLIST_PLAYBACK_ORDER_NORMAL);
-    vlc_playlist_SetPlaybackRepeat(d->m_playlist, VLC_PLAYLIST_PLAYBACK_REPEAT_NONE);
-    vlc_playlist_Clear(d->m_playlist);
-
-    if (media.isEmpty())
-        return;
-
-    auto rawMedia = toRaw<input_item_t *>(media);
-    int ret = vlc_playlist_Append(d->m_playlist, rawMedia.constData(), rawMedia.size());
-    if (ret != VLC_SUCCESS)
-        throw std::bad_alloc();
-
-    ret = vlc_playlist_GoTo(d->m_playlist, 0);
-    if (ret == VLC_SUCCESS)
-        vlc_playlist_Start(d->m_playlist);
 }
 
 bool PlaylistController::curateCurrentToBucket(int bucket)

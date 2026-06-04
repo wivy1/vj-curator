@@ -216,7 +216,7 @@ int main(int i_argc, const char *ppsz_argv[])
     dispatch_resume(sigTermSource);
 
     /* Handle parameters */
-    const char **argv = calloc(i_argc + 8, sizeof (argv[0]));
+    const char **argv = calloc(i_argc + 3, sizeof (argv[0]));
     if (argv == NULL)
         exit(1);
 
@@ -224,10 +224,6 @@ int main(int i_argc, const char *ppsz_argv[])
 
     argv[argc++] = "--ignore-config";
     argv[argc++] = "--no-media-library";
-    argv[argc++] = "--no-qt-privacy-ask";
-    argv[argc++] = "--qt-menubar";
-    argv[argc++] = "--qt-titlebar";
-    argv[argc++] = "--qt-pin-controls";
 
     /* Overwrite system language */
     CFPropertyListRef lang_pref = CFPreferencesCopyAppValue(CFSTR("language"),

@@ -38,6 +38,8 @@
 {
     NSArray *_usedHotkeys;
 }
+
+- (BOOL)handleVJCuratorNumericKey:(NSEvent *)event;
 @end
 
 @implementation VLCHotkeysController
@@ -98,6 +100,10 @@
 
     NSString *characters = [anEvent charactersIgnoringModifiers];
     if ([characters length] > 0) {
+        if ([self handleVJCuratorNumericKey:anEvent]) {
+            return YES;
+        }
+
         key = [[characters lowercaseString] characterAtIndex: 0];
 
         if (key) {
@@ -126,6 +132,10 @@
 
 - (BOOL)performKeyEquivalent:(NSEvent *)anEvent
 {
+    if ([self handleVJCuratorNumericKey:anEvent]) {
+        return YES;
+    }
+
     BOOL enforced = NO;
     // these are key events which should be handled by vlc core, but are attached to a main menu item
     if (![self isEvent:anEvent forKey:"key-vol-up"] &&
@@ -145,6 +155,35 @@
     }
 
     return [self hasDefinedShortcutKey:anEvent force:enforced] || [self keyEvent:anEvent];
+}
+
+- (BOOL)handleVJCuratorNumericKey:(NSEvent *)event
+{
+    const NSEventModifierFlags modifiers = event.modifierFlags;
+    const NSEventModifierFlags disallowedModifiers =
+        NSEventModifierFlagShift |
+        NSEventModifierFlagControl |
+        NSEventModifierFlagOption |
+        NSEventModifierFlagCommand;
+    if ((modifiers & disallowedModifiers) != 0) {
+        return NO;
+    }
+
+    NSString * const characters = event.charactersIgnoringModifiers;
+    if (characters.length == 0) {
+        return NO;
+    }
+
+    const unichar key = [characters characterAtIndex:0];
+    if (key < '0' || key > '9') {
+        return NO;
+    }
+
+    if (!event.isARepeat) {
+        [VLCMain.sharedInstance.playQueueController curateCurrentlyPlayingItemToBucket:key - '0'];
+    }
+
+    return YES;
 }
 
 - (BOOL)isEvent:(NSEvent *)anEvent forKey:(const char *)keyString

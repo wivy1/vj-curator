@@ -257,7 +257,7 @@ T.Pane {
                     for (let url in drop.urls)
                         urlList.push(drop.urls[url]);
 
-                    MainPlaylistController.insert(index, urlList, false);
+                    MainPlaylistController.insert(index, urlList, true);
 
                     // NOTE This is required otherwise backend may handle the drop as well yielding double addition.
                     drop.accept(Qt.IgnoreAction);
@@ -378,7 +378,7 @@ T.Pane {
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.WordWrap
 
-                    text: qsTr("Drop this app into a folder containing video clips and then hit the 0-9 keys to begin curating.")
+                    text: qsTr("Drop some videos (or folders) here and then hit the 0-9 keys to begin curating.")
 
                     color: theme.fg.primary
 
