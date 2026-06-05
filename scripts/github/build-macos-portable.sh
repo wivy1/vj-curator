@@ -23,7 +23,7 @@ if [ ! -f "$gettext_tarball" ]; then
     --output "$gettext_tarball" \
     "https://ftp.gnu.org/gnu/gettext/gettext-0.26.tar.gz"
 fi
-grep "gettext-0.26.tar.gz" extras/tools/SHA512SUMS | shasum -a 512 --check /dev/stdin
+(cd extras/tools && grep "gettext-0.26.tar.gz" SHA512SUMS | shasum -a 512 --check /dev/stdin)
 
 extras/package/macosx/build.sh -d -i z -a "$ARCH" -C "$BUILD_DIR"
 make -C "$BUILD_DIR" package-vjcurator-macosx-portable
