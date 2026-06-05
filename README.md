@@ -5,8 +5,8 @@ Do you have thousands of VJ loops and need to curate though them all?
 
 ## App for Windows & Mac
 **[Download VJ Curator](https://github.com/wivy1/vj-curator/releases/latest)**
-- **Note for Windows:** _Download the `.exe`, double-click it, and then click "Run anyway" if Microsoft Defender SmartScreen pops up. This is a portable build and so you can put the app wherever convenient._
-- **Note for MacOS:** _Open the `.dmg`, drag the app somewhere convenient, and double-click it. If the "VJ Curator Not Opened" alert pops up, then open System Settings >>> Privacy & Security >>> scroll to bottom and click "Open Anyway" for VJ Curator. Also since this app moves video clips, you must open System Settings >>> Privacy & Security >>> Accessibility >>> Enable VJ Curator. Now you should be able to use the app as expected._
+- **Note for Windows:** _Download the `.exe`, double-click it, and then click "Run anyway" if the Microsoft Defender SmartScreen pops up. This is a portable build and so you can put the app wherever convenient._
+- **Note for MacOS:** _Open the `.dmg`, drag the app somewhere convenient, and double-click it. If the "VJ Curator Not Opened" alert pops up, then open System Settings >>> Privacy & Security >>> scroll to bottom and click "Open Anyway" for VJ Curator. Also since this app moves video clips on its own, you must open System Settings >>> Privacy & Security >>> Accessibility >>> Enable VJ Curator. Now you should be able to use the app as expected._
 
 ## Workflow
 1. Open the "VJ Curator" app.
@@ -32,6 +32,6 @@ Press "3" for rejects
 - Uses the fixed version of VLC which can playback DXV and HAP video clips without crashing.
 
 ## Credits
-This app is the result of a collaboration between [Will Ivy](https://www.williamivy.com/) and [Jason Fletcher](https://www.jasonfletcher.info/).
+This app is the result of a collaboration between [Will Ivy](https://www.williamivy.com/) and [Jason Fletcher](https://www.jasonfletcher.info/). This app was vibecoded using ChatGPT Codex 5.5 Thinking Heavy.
 
-VJ Curator is based on VLC media player. VLC media player, VideoLAN, and x264 are registered trademarks of VideoLAN. VJ Curator preserves the VLC licensing and attribution files included in this repository; see `COPYING`, `COPYING.LIB`, `AUTHORS`, `THANKS`, and `README-VLC.md`. VJ Curator is not affiliated with or endorsed by VideoLAN.
+VJ Curator is based on VLC media player. VLC media player, VideoLAN, and x264 are registered trademarks of VideoLAN. VJ Curator preserves the VLC licensing and attribution files included in this repository; see `COPYING`, `COPYING.LIB`, `AUTHORS`, `THANKS`, and `README-VLC.md`. VJ Curator is not affiliated with or endorsed by VideoLAN. Much respect to the VLC dev team!
