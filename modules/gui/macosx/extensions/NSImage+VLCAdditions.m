@@ -29,17 +29,17 @@
 
 + (NSImage *)VLCAppIconImage
 {
-    return [NSImage imageNamed:@"VLC"];
+    return [NSImage imageNamed:@"VJCurator"];
 }
 
 + (NSImage *)VLCXmasAppIconImage
 {
-    return [NSImage imageNamed:@"VLC-Xmas"];
+    return [NSImage imageNamed:@"VJCurator"];
 }
 
 + (NSImage *)VLCStatusBarIconImage
 {
-    return [NSImage imageNamed:@"VLCStatusBarIcon"];
+    return [NSImage imageNamed:@"VJCurator"];
 }
 
 + (NSImage *)VLCSidebarMovieImage

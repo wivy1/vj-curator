@@ -178,8 +178,9 @@
         [self.statusItem setEnabled:YES];
 
         // Set the status item image
-        NSImage *menuIcon = NSImage.VLCStatusBarIconImage;
-        [menuIcon setTemplate:YES];
+        NSImage *menuIcon = [NSImage.VLCStatusBarIconImage copy];
+        menuIcon.size = NSMakeSize(18., 18.);
+        [menuIcon setTemplate:NO];
         [self.statusItem setImage:menuIcon];
 
         // Attach pull-down menu
