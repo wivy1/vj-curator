@@ -5,7 +5,7 @@ Do you have thousands of VJ loops and need to curate though them all?
 
 ## App for Windows & Mac
 **[Download VJ Curator](https://github.com/wivy1/vj-curator/releases/latest)**
-- **Note for Windows:** _Unzip, double-click app, and the click "Run anyway" on the Microsoft Defender SmartScreen pops up. This is a portable build and so you can put the app whereever convenient._
+- **Note for Windows:** _Unzip, double-click app, and the click "Run anyway" in the Microsoft Defender SmartScreen popup window. This is a portable build and so you can put the app whereever convenient._
 - **Note for MacOS:** _Unzip and double-click app. This is a portable build and so you can put the app whereever convenient. If the "VJ Curator Not Opened" alert pops up, then open the System Settings >>> Privacy & Security >>> scroll to bottom and click "Open Anyway" for VJ Curator. Also since this app automatically moves the location of video clips, you must open the System Settings >>> Privacy & Security >>> Accessibility >>> Enable VJ Curator. Now you should be able to use the app as expected._
 
 ## Workflow
