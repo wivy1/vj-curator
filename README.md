@@ -1,5 +1,5 @@
 # VJ Curator
-Do you have thousands of VJ loops and need to curate though them all?
+Do you have thousands of VJ loops and need to curate through them all?
 
 <img src="share/icons/vj-curator.png" width="150" height="150">
 
@@ -15,8 +15,8 @@ Do you have thousands of VJ loops and need to curate though them all?
 4. Press any number key on the keyboard (0 through 9).
 5. The video clip will be automatically moved into a folder with a matching number. For example, hit "9" on the keyboard and it'll be moved into a folder named "9". Also the video clip will be removed automatically from the queue and the next video starts playing.
 
-## You Assign Meaning to the Curation Numbers
-For example, maybe the curation numbers mean...
+## Interpretation of Numbers
+The hotkey digits can mean whatever is useful for your curation process. For example...
 ```
 Press "1" for keepers
 Press "2" for maybes
