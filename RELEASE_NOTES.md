@@ -4,18 +4,10 @@ This release fixes the macOS runtime app icon.
 
 VJ Curator 0.1.4 is based on VLC 4.0.0-dev.
 
-## Highlights
+## Changes
 
-- Starts with an empty queue so you can drop in videos or folders.
-- Moves each sorted clip into a numbered folder beside that clip.
-- Moves the currently playing clip into folders `0` through `9` using top-row or numpad keys.
-- Updates the remaining clip counter beside the volume controls.
-- Replaces VLC's empty queue text with VJ Curator-specific drop guidance.
-- Removes Qt-only launcher options from macOS and adds native macOS numeric-key curation.
-- Fixes a macOS crash during launch when VLC menu shortcuts with no assigned key were loaded.
 - Keeps the VJ Curator icon in the macOS Dock after the app launches.
-- Uses the VJ Curator icon for the macOS status/menu-bar icon.
-- Provides a one-file Windows launcher and a macOS DMG with `VJ Curator.app`.
+- Uses the VJ Curator icon for the macOS menu-bar icon instead of the VLC cone.
 
 ## License
 
