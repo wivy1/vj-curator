@@ -32,4 +32,4 @@ Press "3" for rejects
 - Uses the fixed version of VLC which can playback DXV and HAP video clips without crashing.
 
 ## Credits
-This app is the result of a collaboration between Will Ivy and Jason Fletcher. This app was vibecoded using ChatGPT Codex 5.5 Thinking Heavy. This is a fork of VLC and maintains the open-source licensing. Much respect to the VLC dev team!
+This app is the result of a collaboration between [Will Ivy](https://www.williamivy.com/) and [Jason Fletcher](https://www.jasonfletcher.info/). This app was vibecoded using ChatGPT Codex 5.5 Thinking Heavy. This is a fork of VLC and maintains the open-source licensing. Much respect to the VLC dev team!
