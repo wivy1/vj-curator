@@ -1,8 +1,8 @@
-# VJ Curator 0.1.2
+# VJ Curator 0.1.3
 
-This release fixes a macOS startup crash found in the 0.1.1 build.
+This release updates app branding and macOS packaging.
 
-VJ Curator 0.1.2 is based on VLC 4.0.0-dev.
+VJ Curator 0.1.3 is based on VLC 4.0.0-dev.
 
 ## Highlights
 
@@ -13,7 +13,8 @@ VJ Curator 0.1.2 is based on VLC 4.0.0-dev.
 - Replaces VLC's empty queue text with VJ Curator-specific drop guidance.
 - Removes Qt-only launcher options from macOS and adds native macOS numeric-key curation.
 - Fixes a macOS crash during launch when VLC menu shortcuts with no assigned key were loaded.
-- Provides a one-file Windows launcher and a one-app macOS archive.
+- Adds the VJ Curator icon to Windows and macOS builds.
+- Provides a one-file Windows launcher and a macOS DMG with `VJ Curator.app`.
 
 ## License
 

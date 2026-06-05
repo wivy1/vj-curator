@@ -121,15 +121,21 @@ package-macosx-zip: VLC.app
 	rm -rf "$(top_builddir)/vlc-$(VERSION)"
 
 package-vjcurator-macosx-portable: VLC.app
-	rm -f "$(top_builddir)/vj-curator-$(VERSION)-macosx.zip"
+	rm -f "$(top_builddir)/vj-curator-$(VERSION)-macos.dmg"
 	rm -rf "$(top_builddir)/VJ Curator.app"
+	rm -rf "$(top_builddir)/vj-curator-$(VERSION)-macos"
 	cp -Rp "$(top_builddir)/VLC.app" "$(top_builddir)/VJ Curator.app"
 	mkdir -p "$(top_builddir)/VJ Curator.app/Contents/Resources/Goodies/"
 	cd $(srcdir); cp -R AUTHORS COPYING README.md THANKS NEWS "$(abs_top_builddir)/VJ Curator.app/Contents/Resources/Goodies/"
 	codesign --force --deep --sign - "$(top_builddir)/VJ Curator.app"
 	codesign --verify --deep --strict --verbose=2 "$(top_builddir)/VJ Curator.app"
-	cd "$(top_builddir)" && ditto -c -k --sequesterRsrc --keepParent "VJ Curator.app" "vj-curator-$(VERSION)-macosx.zip"
+	mkdir -p "$(top_builddir)/vj-curator-$(VERSION)-macos"
+	cp -Rp "$(top_builddir)/VJ Curator.app" "$(top_builddir)/vj-curator-$(VERSION)-macos/VJ Curator.app"
+	$(LN_S) -f /Applications "$(top_builddir)/vj-curator-$(VERSION)-macos/"
+	hdiutil create -srcfolder "$(top_builddir)/vj-curator-$(VERSION)-macos" -volname "VJ Curator" \
+		-format UDBZ -fs HFS+ -o "$(top_builddir)/vj-curator-$(VERSION)-macos.dmg"
 	rm -rf "$(top_builddir)/VJ Curator.app"
+	rm -rf "$(top_builddir)/vj-curator-$(VERSION)-macos"
 
 package-macosx-release:
 	rm -f "$(top_builddir)/vlc-$(VERSION)-release.zip"

@@ -11,7 +11,7 @@
 	<key>CFBundleExecutable</key>
 	<string>VLC</string>
 	<key>CFBundleIconFile</key>
-	<string>VLC.icns</string>
+	<string>VJCurator.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.vjcurator.app</string>
 	<key>CFBundleInfoDictionaryVersion</key>

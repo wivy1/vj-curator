@@ -76,6 +76,27 @@
     self.openMediaButton.title = _NS("Open media...");
     self.dragDropImageBackgroundBox.fillColor = NSColor.VLClibrarySeparatorLightColor;
 
+    for (NSView * const subview in self.dragDropView.subviews) {
+        subview.hidden = YES;
+    }
+
+    NSTextField * const emptyQueueLabel =
+        [NSTextField wrappingLabelWithString:_NS("Drop some videos (or folders) here and then hit the 0-9 keys to begin curating.")];
+    emptyQueueLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    emptyQueueLabel.alignment = NSTextAlignmentCenter;
+    emptyQueueLabel.font = [NSFont systemFontOfSize:14. weight:NSFontWeightMedium];
+    emptyQueueLabel.textColor = NSColor.secondaryLabelColor;
+    emptyQueueLabel.maximumNumberOfLines = 0;
+    [self.dragDropView addSubview:emptyQueueLabel];
+    [NSLayoutConstraint activateConstraints:@[
+        [emptyQueueLabel.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.dragDropView.leadingAnchor
+                                                                   constant:24.],
+        [emptyQueueLabel.trailingAnchor constraintLessThanOrEqualToAnchor:self.dragDropView.trailingAnchor
+                                                                  constant:-24.],
+        [emptyQueueLabel.centerXAnchor constraintEqualToAnchor:self.dragDropView.centerXAnchor],
+        [emptyQueueLabel.centerYAnchor constraintEqualToAnchor:self.dragDropView.centerYAnchor],
+    ]];
+
     // Allow the drop zone image to shrink when the sidebar is contracted
     for (NSView * const subview in self.dragDropView.subviews) {
         if ([subview isKindOfClass:[VLCDropDisabledImageView class]]) {
@@ -269,11 +290,10 @@
     // better idea to pull from the general system theme preference, which is always up-to-date
     if (isDark) {
         self.bottomButtonsSeparator.borderColor = NSColor.VLClibrarySeparatorDarkColor;
-        self.dragDropImageBackgroundBox.hidden = NO;
     } else {
         self.bottomButtonsSeparator.borderColor = NSColor.VLClibrarySeparatorLightColor;
-        self.dragDropImageBackgroundBox.hidden = YES;
     }
+    self.dragDropImageBackgroundBox.hidden = YES;
 }
 
 #pragma mark - table view interaction

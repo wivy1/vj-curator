@@ -19,11 +19,11 @@ extras/package/macosx/build.sh -d -i z -a "$ARCH" -C "$BUILD_DIR"
 make -C "$BUILD_DIR" package-vjcurator-macosx-portable
 
 mkdir -p dist
-zip_artifact="$(find "$BUILD_DIR" -maxdepth 1 -type f -name 'vj-curator-*-macosx.zip' | sort | head -n 1)"
+dmg_artifact="$(find "$BUILD_DIR" -maxdepth 1 -type f -name 'vj-curator-*-macos.dmg' | sort | head -n 1)"
 
-if [ -z "$zip_artifact" ]; then
+if [ -z "$dmg_artifact" ]; then
   echo "Expected macOS portable artifact was not created" >&2
   exit 1
 fi
 
-cp "$zip_artifact" "dist/vj-curator-${RELEASE_VERSION}-macosx.zip"
+cp "$dmg_artifact" "dist/vj-curator-${RELEASE_VERSION}-macos.dmg"

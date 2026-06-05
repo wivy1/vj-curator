@@ -1090,6 +1090,7 @@ static void *Thread( void *obj )
     }
 #endif
 
+    app.setApplicationName( qtr("VJ Curator") );
     app.setApplicationDisplayName( qtr("VJ Curator") );
 
     if( QDate::currentDate().dayOfYear() >= QT_XMAS_JOKE_DAY && var_InheritBool( p_intf, "qt-icon-change" ) )

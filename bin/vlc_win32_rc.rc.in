@@ -3,7 +3,7 @@
 
 #include <winuser.h>
 
-VLC_ICON ICON "vlc.ico"
+VLC_ICON ICON "vj-curator.ico"
 
 1 VERSIONINFO
 FILETYPE 1
@@ -16,12 +16,12 @@ BEGIN
     BLOCK "040904E4"
     BEGIN
       VALUE "CompanyName", "VideoLAN"
-      VALUE "ProductName", "VLC media player"
+      VALUE "ProductName", "VJ Curator"
       VALUE "ProductVersion", VERSION_NUMBER_STR
-      VALUE "InternalName", "vlc"
-      VALUE "OriginalFilename", "vlc.exe"
+      VALUE "InternalName", "vj-curator"
+      VALUE "OriginalFilename", "VJ Curator Runtime.exe"
       VALUE "FileVersion", "@VERSION@"
-      VALUE "FileDescription", "VLC media player"
+      VALUE "FileDescription", "VJ Curator"
       VALUE "LegalCopyright", "Copyright \251 @COPYRIGHT_YEARS@ VideoLAN and VLC Authors"
       VALUE "LegalTrademarks", "VLC media player, VideoLAN and x264 are registered trademarks from VideoLAN"
     END

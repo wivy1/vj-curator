@@ -98,6 +98,16 @@ dist_icons128_DATA = icons/128x128/vlc.png icons/128x128/vlc-xmas.png \
                      icons/128x128/vlc-kb.png
 dist_icons256_DATA = icons/256x256/vlc.png
 
+EXTRA_DIST += \
+	icons/vj-curator.png \
+	icons/vj-curator.ico \
+	icons/16x16/vj-curator.png \
+	icons/32x32/vj-curator.png \
+	icons/48x48/vj-curator.png \
+	icons/128x128/vj-curator.png \
+	icons/256x256/vj-curator.png \
+	icons/512x512/vj-curator.png
+
 nobase_dist_pkgdata_SCRIPTS = \
 	utils/audio-vlc-default.sh \
 	utils/video-vlc-default.sh \

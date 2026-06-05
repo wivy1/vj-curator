@@ -71,6 +71,7 @@ endif
 	cp "$(srcdir)/README.md" "$(win32_destdir)/README.txt"
 
 	cp $(srcdir)/share/icons/vlc.ico $(win32_destdir)
+	cp $(srcdir)/share/icons/vj-curator.ico $(win32_destdir)
 	for plugindir in $(pkglibdir)/plugins/*/; do \
 		plugin_destdir="$(win32_destdir)/plugins/`basename $$plugindir`"; \
 		mkdir -p "$$plugin_destdir"; \

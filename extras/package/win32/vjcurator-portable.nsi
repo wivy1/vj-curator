@@ -22,7 +22,7 @@ SetCompress auto
 Name "VJ Curator"
 Caption "VJ Curator"
 OutFile "${PORTABLE_OUTFILE}"
-Icon "${PORTABLE_SOURCE_DIR}/vlc.ico"
+Icon "${PORTABLE_SOURCE_DIR}/vj-curator.ico"
 
 Section
   InitPluginsDir
