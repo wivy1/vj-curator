@@ -15,6 +15,16 @@ fi
 export CONTRIBFLAGS="${CONTRIBFLAGS:-} --disable-tremor"
 export VLC_CONFIGURE_ARGS="${VLC_CONFIGURE_ARGS:-} --disable-tremor"
 
+# GitHub's hosted macOS runners can hit stale or bad TLS on ftpmirror.gnu.org.
+# Pre-seed gettext from GNU's primary host and verify it with VLC's checksum.
+gettext_tarball="extras/tools/gettext-0.26.tar.gz"
+if [ ! -f "$gettext_tarball" ]; then
+  curl -f -L --retry 3 \
+    --output "$gettext_tarball" \
+    "https://ftp.gnu.org/gnu/gettext/gettext-0.26.tar.gz"
+fi
+grep "gettext-0.26.tar.gz" extras/tools/SHA512SUMS | shasum -a 512 --check /dev/stdin
+
 extras/package/macosx/build.sh -d -i z -a "$ARCH" -C "$BUILD_DIR"
 make -C "$BUILD_DIR" package-vjcurator-macosx-portable
 
