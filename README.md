@@ -1,5 +1,7 @@
 # VJ Curator
-Do you have thousands of VJ loops and need to curate through them all?
+Curation is a pain point for VJs. How do you pick out your favorite video clips when going through a VJ pack?
+
+The VJ Curator app is a fork of VLC where you can press the 0-9 hotkeys to easily curate the video clips. After pressing a number key then the video clip will be automatically moved into a folder with a matching number. And since VLC is at its core, it will playback any type of video clip that you give it.
 
 <img src="share/icons/vj-curator.png" width="150" height="150">
 
