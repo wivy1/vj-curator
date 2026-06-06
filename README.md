@@ -30,7 +30,7 @@ Press "3" for rejects
 ## More Details
 - There is a counter beside the volume controls which shows how many video clips are left in the queue.
 - Drop multiple folders into the queue and the app will automatically index all video clips within the folder.
-- Feel free to add video clips into the queue from multiple folders and their original parent directories will always be preserved. During curation, the numbered output folders will be created within each video clip's corresponding parent directory. This makes it easy to work with VJ packs while keeping the resulting curated folders organized within their respective VJ pack locations.
+- Feel free to add video clips into the queue from multiple folders and their original parent directories will always be preserved. During curation, the numbered output folders will be created within each video clip's corresponding parent directory. This makes it easy to work with multiple VJ packs while keeping the resulting curated folders organized within their respective VJ pack locations.
 - On the keyboard you can use either the number row keys or numpad keys.
 - Video clips are frequently huge and so this app moves the files instead of copying them. Sorry, not sorry.
 - Uses the fixed version of VLC which can playback DXV and HAP video clips without crashing.
