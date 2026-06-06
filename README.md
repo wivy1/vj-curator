@@ -10,6 +10,8 @@ The VJ Curator app is a fork of VLC where you can press the 0-9 hotkeys to easil
 - **Note for Windows:** _Download the `.exe`, double-click it, and then click "Run anyway" if the Microsoft Defender SmartScreen pops up. This is a portable build and so you can put the app wherever convenient._
 - **Note for MacOS:** _Open the `.dmg`, drag the app somewhere convenient, and double-click it. If the "VJ Curator Not Opened" alert pops up, then open System Settings >>> Privacy & Security >>> scroll to bottom and click "Open Anyway" for VJ Curator. Also since this app moves video clips on its own, you must open System Settings >>> Privacy & Security >>> Accessibility >>> Enable VJ Curator. Now you should be able to use the app as expected._
 
+![Screenshot](share/Screenshots_Windows-Mac.jpg)
+
 ## Workflow
 1. Open the "VJ Curator" app.
 2. Drop video clips (or folders) into the queue.
