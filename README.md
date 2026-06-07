@@ -36,6 +36,6 @@ Press "3" for rejects
 - Uses the fixed version of VLC which can playback DXV and HAP video clips without crashing.
 
 ## Credits
-This app is the result of a collaboration between [Will Ivy](https://www.williamivy.com/) and [Jason Fletcher](https://www.jasonfletcher.info/). Vibecoded using ChatGPT Codex 5.5 Thinking Heavy.
+This app is the result of a collaboration between [Will Ivy](https://www.williamivy.com/) and [Jason Fletcher](https://www.jasonfletcher.info/vjloops/). Vibecoded using ChatGPT Codex 5.5 Thinking Heavy.
 
 VJ Curator is based on VLC media player. VLC media player, VideoLAN, and x264 are registered trademarks of VideoLAN. VJ Curator preserves the VLC licensing and attribution files included in this repository; see `COPYING`, `COPYING.LIB`, `AUTHORS`, `THANKS`, and `README-VLC.md`. VJ Curator is not affiliated with or endorsed by VideoLAN. Much respect to the VLC dev team!
